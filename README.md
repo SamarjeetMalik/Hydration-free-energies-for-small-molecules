@@ -1,49 +1,19 @@
-# FreeSolv: Experimental and Calculated Small Molecule Hydration Free Energies
-
-This repository provides an issue tracker and revision control for the FreeSolv
-database, initially described in JCAMD (10): http://dx.doi.org/10.1007/s10822-014-9747-x.  If you find any issues, please raise an issue in the issue tracker or file a pull request!
-
-Releases are automatically assigned unique DOIs via Zenodo. Latest release: [![DOI](https://zenodo.org/badge/24502203.svg)](https://zenodo.org/badge/latestdoi/24502203)
-
+# Implementation of the paper on FreeSolv: Experimental and Calculated Small Molecule Hydration Free Energies
 
 # Abstract:
 
 This work provides a curated database of experimental and calculated hydration free energies for small molecules in water, along with experimental values and input files. Experimental values are taken from prior literature and will continue to be curated, with updated experimental references and data added as it becomes available. Calculated values are based on the GAFF small molecule force field in TIP3P water with AM1-BCC charges, as in the provided parameter files. Values were calculated using the GROMACS simulation package, with full details given in references cited within the database itself. This database builds on previous work from the Mobley lab and others, and extends the prior database. With deposition in eScholarship, the database is now versioned, allowing citation of specific versions of the database, and easier updates.
 
-# Background:
 
-This page provides an update of David Mobley's hydration free energy database. The current goal is to provide curated calculated and experimental values for every molecule which the Mobley group has studied at any point, and to allow these to be updated in a versioned manner as issues are found, better experimental data is tracked down or obtained, and so on.
 
-The prior database gives calculated and experimental values for a 504 molecule set which has been called the "504 molecule set", or "the Mobley set" or similar variants. The explicit solvent study on this set was published in (1) and the implicit solvent version in (2), and the full database is in the supporting information. The "504 molecule set" built on earlier sets, notably that from Rizzo (3) and earlier hydration studies by David Mobley and collaborators.
 
-The current set and format is motivated by several factors:
-* There were several problems with specific molecules and/or experimental values in the 504 molecule set which needed correcting
-* We have studied many additional molecules since then and these need adding to the set
-* We need a way to continue sharing and expanding our set, providing both experimental data with references and calculated values (with parameters) as these are used as inputs to test other methods
-* We want to be able to update the set in a versioned manner without having to write a new paper for every update, which necessitates migrating away from journal supporting information.
-
-# What we provide:
-
-The database consists of a .tar.gz file containing:
-* `database.txt`: A semicolon delimited text file containing compound IDs, SMILES, IUPAC names or similar, experimental values and uncertainties, calculated values, DOIs for references, and notes. Format described in the header
-* `database.pickle`: Python pickle file containing the same database, with some extra fields as well including 'groups', which provides functional groups for the compounds as assigned by checkmol), PubChem compound IDs, calculated enthalpies of hydration, some experimental enthalpies of hydration (from ORCHYD), and components of the enthalpy of hydration and hydration free energy (as described in our forthcoming paper, to be linked here soon).
-* `groups.txt`: Functional groups for compounds as assigned by checkmol. Semicolon delimited. First field is compound ID, second field is compound name, and subsequent fields are functional groups.
-* `iupac_to_cid.pickle, smiles_to_cid.pickle`: Python pickle files containing conversion of IUPAC name to compound id and SMILES string to compound id, stored in dictionaries
-* Structure files:
-  * `mol2files_sybyl.tar.gz`: `mol2` files with partial charges as written by OEChem in Sybyl format/Sybyl atom types
-  * `mol2files_gaff.tar.gz`: `mol2` files with partial charges as used for our hydration free energy calculations (AMBER GAFF atom types)
-  * `sdffiles.tar.gz`: `sdf` files with partial charges as written by OEChem
-  * `gromacs_original.tar.gz`: GROMACS format topology and coordinate files as used for our AM1-BCC GAFF hydration free energy calculations. Technical note: There may be some variation as to whether water molecules are or are not included in these files; these are intended to be used for the small molecule parameters only.
-
-(See the Manifest below for a more complete list of all available files.)
 
 
 # The future:
 
 The database is maintained on the cite-able eScholarship repository of the University of California. It is currently available on that site at www.escholarship.org/uc/item/6sd403pz. Updated versions will be maintained there, mirroring point releases provided via this GitHub site.
 
-Please cite:
-> Mobley, David L. (2013). Experimental and Calculated Small Molecule Hydration Free Energies. UC Irvine: Department of Pharmaceutical Sciences, UCI. Retrieved from: http://www.escholarship.org/uc/item/6sd403pz
+
 
 # Manifest
 - `gromacs_analysis`: Contains plots resulting from GROMACS analysis of some of the data in FreeSolv.
@@ -170,32 +140,6 @@ Same as the above but initiates Zenodo DOIs. DOI http://dx.doi.org/10.5281/zenod
 - Update reference for calculated values to refer to the J Chem Engr Data reference.
 
 
-## Changes not yet in a release: 
-
-# Contributors
-
-(Please let us know if your name should be on this list but isn't)
-- David L. Mobley (UC Irvine)
-- J. Peter Guthrie (University of Western Ontario)
-- The many people who contributed to the SAMPL challenges over the years and our early studies on hydration free energies, prior to construction of this database.
-- Guilherme Duarte Ramos Matos (UC Irvine)
-- Daisy Y. Kyu (UC Irvine)
-- Caitlin Bannan (UC Irvine)
-- John D. Chodera (MSKCC)
-- Michael R. Shirts (Colorado)
-- Hannes H. Loeffler (STFC Daresbury)
-- Nathan M. Lim (UC Irvine)
 
 
-# References
-* (1) Mobley, D. L., Bayly, C. I., Cooper, M. D., Shirts, M. R., & Dill, K. A. (2009). Small Molecule Hydration Free Energies in Explicit Solvent: An Extensive Test of Fixed-Charge Atomistic Simulations. Journal of Chemical Theory and Computation, 5(2), 350–358.
-* (2) Mobley, D. L., Dill, K., & Chodera, J. D. (2008). Treating entropy and conformational changes in implicit solvent simulations of small molecules.The Journal of Physical Chemistry B,112(3), 938.
-* (3) Rizzo, R. C., Aynechi, T., Case, D. A., & Kuntz, I. D. (2006). Estimation of Absolute Free Energies of Hydration Using Continuum Methods:  Accuracy of Partial Charge Models and Optimization of Nonpolar Contributions.Journal of Chemical Theory and Computation,2(1), 128–139. doi:10.1021/ct050097l
-* (4) Mobley, D. L., Dumont, É., Chodera, J. D., & Dill, K. (2007). Comparison of charge models for fixed-charge force fields: Small-molecule hydration free energies in explicit solvent.The Journal of Physical Chemistry B,111(9), 2242–2254.
-* (5) Nicholls, A., Mobley, D. L., Guthrie, J. P., Chodera, J. D., Bayly, C. I., Cooper, M. D., & Pande, V. S. (2008). Predicting small-molecule solvation free energies: an informal blind test for computational chemistry.Journal of Medicinal Chemistry,51(4), 769–779. doi:10.1021/jm070549+
-* (6) Mobley, D. L., Bayly, C. I., Cooper, M. D., & Dill, K. A. (2009). Predictions of hydration free energies from all-atom molecular dynamics simulations.The Journal of Physical Chemistry B,113(14), 4533–4537. doi:10.1021/jp806838b
-* (7) Klimovich, P., & Mobley, D. L. (2010). Predicting hydration free energies using all-atom molecular dynamics simulations and multiple starting conformations.Journal of Computer-Aided Molecular Design,24(4), 307–316.
-* (8) Mobley, D. L., Liu, S., Cerutti, D. S., Swope, W. C., & Rice, J. E. (2012). Alchemical prediction of hydration free energies for SAMPL.Journal of Computer-Aided Molecular Design,26(5), 551–562. doi:10.1007/s10822-011-9528-8
-* (9) Mobley, D. L., Wymer, K. L., Lim, N. M., Guthrie, J. P.  (2014) "Blind prediction of solvation free energies from the SAMPL4 challenge", Journal of Computer-Aided Molecular Design, 28:135-150 (2014).
-* (10) Mobley, D. L., and Guthrie, J. P., "FreeSolv: A database of experimental and calculated hydration free energies, with input files", Journal of Computer-Aided Molecular Design, 28(7):711-720 (2014)
-* (11) Duarte Ramos Matos, G. et al., "Approaches for calculating solvation free energies and enthalpies demonstrated with an update of the FreeSolv database", Journal of Chemical and Engineering Data 62(5):1559-1569 (2017) [10.1021/acs.jced.7b00104](https://doi.org/10.1021/acs.jced.7b00104)
+
